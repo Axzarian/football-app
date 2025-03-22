@@ -1,7 +1,10 @@
 spring:
   application:
     name: football-test-app
+
   datasource:
     url: jdbc:postgresql://localhost:5432/football_db
     username: ""
     password: ""
+
+#debug: true

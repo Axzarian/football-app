@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changesets/001-create-arbiters-table.sql
+  - include:
+      file: db/changelog/changesets/002-create-season-table.sql
+  - include:
+      file: db/changelog/changesets/003-create-players-table.sql
+  - include:
+      file: db/changelog/changesets/004-create-players-skills-table.sql
+  - include:
+      file: db/changelog/changesets/005-create-teams-table.sql
+  - include:
+      file: db/changelog/changesets/006-create-season-team-player-table.sql
+  - include:
+      file: db/changelog/changesets/007-create-games-table.sql
+  - include:
+      file: db/changelog/changesets/008-create-player-statistics-table.sql
