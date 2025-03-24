@@ -2,10 +2,14 @@ package org.axzarian.footballtestapp.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.axzarian.footballtestapp.dto.CreateArbiterDto;
+import org.axzarian.footballtestapp.dto.ArbiterDto;
+import org.axzarian.footballtestapp.entity.Arbiter;
 import org.axzarian.footballtestapp.service.ArbiterService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +24,14 @@ public class ArbiterController {
 
 
     @PostMapping
-    public ResponseEntity<CreateArbiterDto> create(@Valid @RequestBody CreateArbiterDto arbiterDto) {
-
+    public ResponseEntity<ArbiterDto> create(@Valid @RequestBody ArbiterDto arbiterDto) {
         final var saved = arbiterService.create(arbiterDto);
-
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ArbiterDto>> findAll(Pageable pageable) {
+        final var page = arbiterService.findAll(pageable);
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 }

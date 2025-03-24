@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import lombok.Builder;
 
 @Builder
-public record CreateArbiterDto(
+public record ArbiterDto(
 
     Long id,
 
