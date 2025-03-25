@@ -1,6 +1,7 @@
 package org.axzarian.footballtestapp.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import lombok.Builder;
 
@@ -15,6 +16,7 @@ public record ArbiterDto(
     @NotBlank(message = "Last name can not be empty")
     String lastName,
 
+    @NotNull(message = "Birthdate is mandatory")
     LocalDate birthDate
 ) {
 }

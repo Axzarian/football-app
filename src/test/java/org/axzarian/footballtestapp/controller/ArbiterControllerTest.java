@@ -100,4 +100,22 @@ class ArbiterControllerTest {
         assertThat(pageable.getPageNumber()).isEqualTo(0);
         assertThat(pageable.getPageSize()).isEqualTo(3);
     }
+
+    @Test
+    void testDeleteNoContent() throws Exception {
+
+        when(arbiterService.delete(10L)).thenReturn(true);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/arbiters/10"))
+               .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    void testDeleteNotFound() throws Exception {
+
+        when(arbiterService.delete(10L)).thenReturn(false);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/arbiters/10"))
+               .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 }

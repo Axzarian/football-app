@@ -1,8 +1,9 @@
-package org.axzarian.footballtestapp.exxeption.handler;
+package org.axzarian.footballtestapp.exception.handler;
 
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
+import org.axzarian.footballtestapp.exception.EntityDoesNotExist;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -28,5 +29,12 @@ public class GlobalExceptionHandler {
         Map<String, String> errors = new HashMap<>();
         errors.put("error", ex.getMessage());
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityDoesNotExist.class)
+    public ResponseEntity<Map<String, String>> handleEntityDoesNotExist(EntityDoesNotExist ex) {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("error", ex.getMessage());
+        return new ResponseEntity<>(errors, HttpStatus.NOT_FOUND);
     }
 }
