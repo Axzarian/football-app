@@ -6,6 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import org.axzarian.footballtestapp.converter.ArbiterConverter;
 import org.axzarian.footballtestapp.dto.ArbiterDto;
 import org.axzarian.footballtestapp.entity.Arbiter;
@@ -134,5 +135,46 @@ class ArbiterServiceImplTest {
 
         verify(arbiterRepository).deleteArbiterById(id);
         assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void testUpdate() {
+        final var id = 10L;
+        final var dto = ArbiterDto.builder()
+                                  .firstName("Wolfgang")
+                                  .lastName("Berg")
+                                  .birthDate(LocalDate.of(1990, 1, 1))
+                                  .build();
+
+        final var beforeUpdateEntity = Arbiter.builder()
+                                              .id(id)
+                                              .firstName("Klaus")
+                                              .lastName("Richter")
+                                              .birthDate(LocalDate.of(1980, 1, 1))
+                                              .build();
+
+        final var afterUpdateEntity = Arbiter.builder()
+                                             .id(id)
+                                             .firstName("Wolfgang")
+                                             .lastName("Berg")
+                                             .birthDate(LocalDate.of(1990, 1, 1))
+                                             .build();
+
+        final var afterUpdateDto = ArbiterDto.builder()
+                                             .id(id)
+                                             .firstName("Wolfgang")
+                                             .lastName("Berg")
+                                             .birthDate(LocalDate.of(1990, 1, 1))
+                                             .build();
+
+        when(arbiterRepository.findById(id)).thenReturn(Optional.of(beforeUpdateEntity));
+        when(arbiterRepository.save(afterUpdateEntity)).thenReturn(afterUpdateEntity);
+        when(arbiterConverter.toDto(afterUpdateEntity)).thenReturn(afterUpdateDto);
+
+        //
+        final var updated = arbiterService.update(id, dto);
+        //
+
+        assertThat(updated).isEqualTo(afterUpdateDto);
     }
 }

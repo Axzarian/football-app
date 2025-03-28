@@ -1,7 +1,7 @@
 package org.axzarian.footballtestapp.controller;
 
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.dto.ArbiterDto;
 import org.axzarian.footballtestapp.service.ArbiterService;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:8082")
 @RestController()
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/arbiters")
 public class ArbiterController {
 

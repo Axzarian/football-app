@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,22 +16,22 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @Builder
-@Table(name = "arbiters")
+@Table(name = "season")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Arbiter {
+public class Season {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "title")
+    private String title;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "start_date")
+    private LocalDate startDate;
 
-    @NotNull
-    @Column(name = "birth_date")
-    private LocalDate birthDate;
+    @Column(name = "end_date")
+    private LocalDate endDate;
 }
+

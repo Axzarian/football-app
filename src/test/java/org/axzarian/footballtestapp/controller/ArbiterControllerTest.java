@@ -118,4 +118,31 @@ class ArbiterControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.delete("/arbiters/10"))
                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
+
+    @Test
+    void testUpdate() throws Exception {
+
+        final var requestDto = ArbiterDto.builder()
+                                         .firstName("Amadeus")
+                                         .lastName("Schreiber")
+                                         .birthDate(LocalDate.of(1980, 1, 1))
+                                         .build();
+
+        final var responseDto = ArbiterDto.builder()
+                                          .id(10L)
+                                          .firstName("Amadeus")
+                                          .lastName("Schreiber")
+                                          .birthDate(LocalDate.of(1980, 1, 1))
+                                          .build();
+
+        when(arbiterService.update(10L, requestDto)).thenReturn(responseDto);
+
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/arbiters/10")
+                                              .contentType(MediaType.APPLICATION_JSON)
+                                              .content(objectMapper.writeValueAsString(requestDto)))
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+               .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(10L));
+    }
 }
