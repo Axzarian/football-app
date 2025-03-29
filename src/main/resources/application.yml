@@ -11,3 +11,6 @@ spring:
     open-in-view: false
     show-sql: true
 #debug: true
+
+server:
+  port: 8082

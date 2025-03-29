@@ -14,4 +14,5 @@ public interface ArbiterService {
 
     ArbiterDto update(Long id, ArbiterDto arbiterDto);
 
+    ArbiterDto find(Long id);
 }

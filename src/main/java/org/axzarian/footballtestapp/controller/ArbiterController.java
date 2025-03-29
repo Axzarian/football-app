@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:8082")
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController()
 @RequiredArgsConstructor
 @RequestMapping("/arbiters")
@@ -44,7 +44,7 @@ public class ArbiterController {
         final var isDeleted = arbiterService.delete(id);
 
         return isDeleted
-               ? ResponseEntity.noContent().build()
+               ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -52,4 +52,27 @@ public class ArbiterController {
     public ResponseEntity<ArbiterDto> update(@Valid @RequestBody ArbiterDto arbiterDto, @PathVariable Long id) {
         return ResponseEntity.ok(arbiterService.update(id, arbiterDto));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ArbiterDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(arbiterService.find(id));
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

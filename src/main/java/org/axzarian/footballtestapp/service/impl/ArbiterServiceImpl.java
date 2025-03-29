@@ -62,4 +62,14 @@ public class ArbiterServiceImpl implements ArbiterService {
             })
             .orElseThrow(() -> new EntityDoesNotExist("There is no arbiter with id: %s ".formatted(id)));
     }
+
+    @Override
+    public ArbiterDto find(Long id) {
+
+        return arbiterRepository
+            .findById(id)
+            .map(arbiterConverter::toDto)
+            .orElseThrow(() -> new EntityDoesNotExist("There is no arbiter with id: %s ".formatted(id)));
+
+    }
 }
