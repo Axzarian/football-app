@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,9 +28,9 @@ public class PlayerController {
 
 
     @PostMapping
-    public ResponseEntity<PlayerDto> create(@Valid @RequestBody PlayerDto playerDto) {
-        final var saved = playerService.create(playerDto);
-        return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    public ResponseEntity<Void> create(@Valid @RequestBody PlayerDto playerDto) {
+        playerService.create(playerDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -39,15 +40,12 @@ public class PlayerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PlayerDto> delete(@PathVariable Long id) {
-        final var isDeleted = playerService.delete(id);
-
-        return isDeleted
-               ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
-               : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        playerService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/id")
+    @PutMapping("/{id}")
     public ResponseEntity<PlayerDto> update(@Valid @RequestBody PlayerDto playerDto, @PathVariable Long id) {
         return ResponseEntity.ok(playerService.update(id, playerDto));
     }

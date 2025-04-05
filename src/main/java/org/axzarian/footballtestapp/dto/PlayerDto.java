@@ -1,5 +1,7 @@
 package org.axzarian.footballtestapp.dto;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -28,6 +30,21 @@ public record PlayerDto(
     Leg leg,
 
     @NotNull(message = "Set is player a captain")
-    boolean isCaptain
+    boolean isCaptain,
+
+    @Min(10)
+    @Max(100)
+    @NotNull
+    Integer passing,
+
+    @Min(10)
+    @Max(100)
+    @NotNull
+    Integer shooting,
+
+    @Min(10)
+    @Max(100)
+    @NotNull
+    Integer ballControl
 ) {
 }

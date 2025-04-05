@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.converter.PlayerConverter;
+import org.axzarian.footballtestapp.converter.PlayerSkillsConverter;
 import org.axzarian.footballtestapp.dto.PlayerDto;
 import org.axzarian.footballtestapp.exception.EntityDoesNotExist;
 import org.axzarian.footballtestapp.repository.PlayerResitory;
@@ -15,16 +16,22 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
-    private final PlayerResitory  playerResitory;
-    private final PlayerConverter playerConverter;
+    private final PlayerResitory        playerResitory;
+    private final PlayerConverter       playerConverter;
+    private final PlayerSkillsConverter playerSkillsConverter;
 
     @Override
-    public PlayerDto create(PlayerDto playerDto) {
+    @Transactional
+    public void create(PlayerDto playerDto) {
 
-        final var entity = playerConverter.toEntity(playerDto);
-        final var saved  = playerResitory.save(entity);
+        final var player = playerConverter.toEntity(playerDto);
 
-        return playerConverter.toDto(saved);
+        final var playerSkills = playerSkillsConverter.toEntityBuilder(playerDto)
+                                                      .player(player)
+                                                      .build();
+        player.setPlayerSkills(playerSkills);
+
+        playerResitory.save(player);
     }
 
     @Override
@@ -36,8 +43,8 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @Transactional
-    public boolean delete(Long id) {
-        return playerResitory.deletePlayerById(id) > 0;
+    public void delete(Long id) {
+        playerResitory.deleteById(id);
     }
 
     @Override
@@ -51,7 +58,14 @@ public class PlayerServiceImpl implements PlayerService {
                 player.setPosition(playerDto.position());
                 player.setLeg(playerDto.leg());
                 player.setCaptain(playerDto.isCaptain());
+
+                final var playerSkills = player.getPlayerSkills();
+                playerSkills.setPassing(playerDto.passing());
+                playerSkills.setShooting(playerDto.shooting());
+                playerSkills.setBallControl(playerDto.ballControl());
+
                 final var saved = playerResitory.save(player);
+
                 return playerConverter.toDto(saved);
             })
             .orElseThrow(() -> new EntityDoesNotExist("There is no player with id: %s ".formatted(id)));

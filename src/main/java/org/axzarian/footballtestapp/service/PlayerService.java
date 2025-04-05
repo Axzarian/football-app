@@ -7,11 +7,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface PlayerService {
 
-    PlayerDto create(PlayerDto playerDto);
+    void create(PlayerDto playerDto);
 
     List<PlayerDto> findAll();
 
-    boolean delete(Long id);
+    void delete(Long id);
 
     PlayerDto update(Long id, @Valid PlayerDto playerDto);
 
