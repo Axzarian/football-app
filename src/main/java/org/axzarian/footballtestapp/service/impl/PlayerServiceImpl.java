@@ -66,7 +66,7 @@ public class PlayerServiceImpl implements PlayerService {
 
                 final var saved = playerResitory.save(player);
 
-                return playerConverter.toDto(saved);
+                return playerConverter.toDto(saved, playerSkills);
             })
             .orElseThrow(() -> new EntityDoesNotExist("There is no player with id: %s ".formatted(id)));
     }
