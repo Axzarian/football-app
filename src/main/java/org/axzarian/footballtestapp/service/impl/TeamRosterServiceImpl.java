@@ -1,8 +1,12 @@
 package org.axzarian.footballtestapp.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.axzarian.footballtestapp.dto.PlayerDto;
+import org.axzarian.footballtestapp.dto.SeasonTeamRosterDto;
 import org.axzarian.footballtestapp.dto.TeamRosterDto;
 import org.axzarian.footballtestapp.entity.TeamRoster;
+import org.axzarian.footballtestapp.exception.EntityDoesNotExist;
 import org.axzarian.footballtestapp.repository.PlayerResitory;
 import org.axzarian.footballtestapp.repository.SeasonRepository;
 import org.axzarian.footballtestapp.repository.TeamRepository;
@@ -36,8 +40,40 @@ public class TeamRosterServiceImpl implements TeamRosterService {
                                              .build();
 
             teamRosterRepository.save(teamRoster);
+            return;
+        }
+        throw new EntityDoesNotExist("[hg67-js54] One of entity doesn't exist");
+    }
+
+    @Override
+    public List<PlayerDto> getBySeasonAndTeam(Long seasonId, Long teamId) {
+        final var season = seasonRepository.findById(seasonId);
+        final var team   = teamRepository.findById(teamId);
+
+        if (season.isPresent() && team.isPresent()) {
+            return teamRosterRepository.findPlayersBySeasonAndTeamIds(seasonId, teamId);
+
         }
 
+        return List.of();
+    }
+
+   @Override
+    public SeasonTeamRosterDto getBySeasonAndTeamTest(Long seasonId, Long teamId) {
+        final var season = seasonRepository.findById(seasonId);
+        final var team   = teamRepository.findById(teamId);
+
+        if (season.isPresent() && team.isPresent()) {
+            final var players = teamRosterRepository.findPlayersBySeasonAndTeamIds(seasonId, teamId);
+
+            return SeasonTeamRosterDto.builder()
+                                      .seasonTitle(season.get().getTitle())
+                                      .teamTitle(team.get().getTitle())
+                                      .players(players)
+                                      .build();
+        }
+
+        throw new EntityDoesNotExist("[he82-w9o4] One of entity doesn't exist");
 
     }
 }
