@@ -3,9 +3,9 @@ spring:
     name: football-test-app
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/football_db
-    username: ""
-    password: ""
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: "user"
+    password: "pass"
 
   jpa:
     open-in-view: false
