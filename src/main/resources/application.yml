@@ -1,9 +1,12 @@
 spring:
+#  main:
+#    banner-mode: off
+
   application:
     name: football-test-app
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/football_db
     username: "user"
     password: "pass"
 
