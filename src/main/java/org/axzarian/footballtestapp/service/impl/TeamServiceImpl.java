@@ -25,7 +25,7 @@ public class TeamServiceImpl implements TeamService {
         playerResitory.findById(teamDto.captainId())
                       .map(p -> Team.builder()
                                     .title(teamDto.title())
-                                    .player(p)
+                                    .captain(p)
                                     .build())
                       .map(teamRepository::save)
                       .orElseThrow(() -> new EntityDoesNotExist("There is no player with id " + teamDto.captainId()));
@@ -39,7 +39,7 @@ public class TeamServiceImpl implements TeamService {
             .map(t -> TeamDto.builder()
                              .id(t.getId())
                              .title(t.getTitle())
-                             .captainId(t.getPlayer().getId()).build())
+                             .captainId(t.getCaptain().getId()).build())
             .orElseThrow(() -> new EntityDoesNotExist("There is no team with id: %s ".formatted(id)));
     }
 

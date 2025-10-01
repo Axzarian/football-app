@@ -30,5 +30,5 @@ public class Team {
 
     @OneToOne
     @JoinColumn(name = "captain_id")
-    Player player;
+    Player captain;
 }

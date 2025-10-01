@@ -11,7 +11,7 @@ public class TeamConverter {
         return TeamDto.builder()
                       .id(team.getId())
                       .title(team.getTitle())
-                      .captainId(team.getPlayer().getId())
+                      .captainId(team.getCaptain().getId())
                       .build();
     }
 }
