@@ -1,6 +1,7 @@
 package org.axzarian.footballtestapp.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class PlayerSkills {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "player_id")
     Player player;

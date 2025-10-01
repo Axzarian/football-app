@@ -1,6 +1,7 @@
 package org.axzarian.footballtestapp.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +17,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.axzarian.footballtestapp.entity.enums.Leg;
 import org.axzarian.footballtestapp.entity.enums.Position;
 
@@ -50,8 +50,8 @@ public class Player {
     @Column(name = "is_captain")
     private boolean isCaptain;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
-    @ToString.Exclude
     private PlayerSkills playerSkills;
 
 }
