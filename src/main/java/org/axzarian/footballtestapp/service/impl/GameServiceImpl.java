@@ -1,6 +1,9 @@
 package org.axzarian.footballtestapp.service.impl;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.axzarian.footballtestapp.converter.GameConverter;
+import org.axzarian.footballtestapp.dto.CreateGameDto;
 import org.axzarian.footballtestapp.dto.GameDto;
 import org.axzarian.footballtestapp.entity.Game;
 import org.axzarian.footballtestapp.exception.EntityDoesNotExist;
@@ -9,6 +12,7 @@ import org.axzarian.footballtestapp.repository.GameRepository;
 import org.axzarian.footballtestapp.repository.SeasonRepository;
 import org.axzarian.footballtestapp.repository.TeamRepository;
 import org.axzarian.footballtestapp.service.GameService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,9 +23,10 @@ public class GameServiceImpl implements GameService {
     private final TeamRepository    teamRepository;
     private final SeasonRepository  seasonRepository;
     private final ArbiterRepository arbiterRepository;
+    private final GameConverter     gameConverter;
 
     @Override
-    public Game create(GameDto gameDto) {
+    public Game create(CreateGameDto gameDto) {
 
         final var arbiter = arbiterRepository.findById(gameDto.arbiterId())
                                              .orElseThrow(() -> new EntityDoesNotExist("ArbiterId not found"));
@@ -51,5 +56,12 @@ public class GameServiceImpl implements GameService {
         final var game = gameRepository.findById(id).orElseThrow(() -> new EntityDoesNotExist("Game id not found"));
         game.setFinished(true);
         gameRepository.save(game);
+    }
+
+    @Override
+    public List<GameDto> findAll(Pageable pageable) {
+        final var games = gameRepository.findAll(pageable);
+        return games.map(gameConverter::toDto)
+                    .toList();
     }
 }

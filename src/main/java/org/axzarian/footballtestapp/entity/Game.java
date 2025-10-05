@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
@@ -29,21 +29,21 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "season_id")
     Season season;
 
     private LocalDate gameDate;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "arbiter_id")
     private Arbiter arbiter;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "home_team_id")
     private Team homeTeam;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "away_team_id")
     private Team awayTeam;
 
