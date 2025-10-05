@@ -5,8 +5,9 @@ import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
-import org.axzarian.footballtestapp.dto.SeasonDto;
-import org.axzarian.footballtestapp.service.SeasonService;
+import org.axzarian.footballtestapp.core.season.dto.SeasonDto;
+import org.axzarian.footballtestapp.interfaces.rest.controller.SeasonController;
+import org.axzarian.footballtestapp.core.season.service.SeasonService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

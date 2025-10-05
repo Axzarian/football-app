@@ -4,8 +4,9 @@ package org.axzarian.footballtestapp.converter;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
-import org.axzarian.footballtestapp.dto.ArbiterDto;
-import org.axzarian.footballtestapp.entity.Arbiter;
+import org.axzarian.footballtestapp.core.arbiter.dto.ArbiterDto;
+import org.axzarian.footballtestapp.core.arbiter.Arbiter;
+import org.axzarian.footballtestapp.core.arbiter.converter.ArbiterConverter;
 import org.junit.jupiter.api.Test;
 
 class ArbiterConverterTest {

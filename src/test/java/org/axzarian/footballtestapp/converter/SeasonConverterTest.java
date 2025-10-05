@@ -4,8 +4,9 @@ package org.axzarian.footballtestapp.converter;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
-import org.axzarian.footballtestapp.dto.SeasonDto;
-import org.axzarian.footballtestapp.entity.Season;
+import org.axzarian.footballtestapp.core.season.converter.SeasonConverter;
+import org.axzarian.footballtestapp.core.season.dto.SeasonDto;
+import org.axzarian.footballtestapp.core.season.Season;
 import org.junit.jupiter.api.Test;
 
 class SeasonConverterTest {

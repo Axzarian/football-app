@@ -5,10 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import org.axzarian.footballtestapp.converter.SeasonConverter;
-import org.axzarian.footballtestapp.dto.SeasonDto;
-import org.axzarian.footballtestapp.entity.Season;
-import org.axzarian.footballtestapp.repository.SeasonRepository;
+import org.axzarian.footballtestapp.core.season.converter.SeasonConverter;
+import org.axzarian.footballtestapp.core.season.dto.SeasonDto;
+import org.axzarian.footballtestapp.core.season.Season;
+import org.axzarian.footballtestapp.core.season.repository.SeasonRepository;
+import org.axzarian.footballtestapp.core.season.service.impl.SeasonServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
