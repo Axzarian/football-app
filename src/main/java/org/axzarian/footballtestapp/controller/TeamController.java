@@ -5,9 +5,11 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.dto.TeamDto;
 import org.axzarian.footballtestapp.service.TeamService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +37,15 @@ public class TeamController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TeamDto>> findAll() {
-        return ResponseEntity.ok(teamService.findAll());
+    public ResponseEntity<List<TeamDto>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(teamService.findAll(pageable));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        final var isDeleted = teamService.delete(id);
+        return isDeleted
+            ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
+            : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
