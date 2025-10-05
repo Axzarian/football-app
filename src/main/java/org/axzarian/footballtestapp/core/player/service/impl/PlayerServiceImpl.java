@@ -2,7 +2,6 @@ package org.axzarian.footballtestapp.core.player.service.impl;
 
 
 import jakarta.transaction.Transactional;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.core.player.converter.PlayerConverter;
 import org.axzarian.footballtestapp.core.player_skills.converter.PlayerSkillsConverter;
@@ -10,14 +9,16 @@ import org.axzarian.footballtestapp.core.player.dto.PlayerDto;
 import org.axzarian.footballtestapp.core.exception.EntityDoesNotExist;
 import org.axzarian.footballtestapp.core.player.repository.PlayerRepository;
 import org.axzarian.footballtestapp.core.player.service.PlayerService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
 
-    private final PlayerRepository playerRepository;
-    private final PlayerConverter  playerConverter;
+    private final PlayerRepository      playerRepository;
+    private final PlayerConverter       playerConverter;
     private final PlayerSkillsConverter playerSkillsConverter;
 
     @Override
@@ -35,16 +36,21 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public List<PlayerDto> findAll() {
+    public Page<PlayerDto> findAll(Pageable pageable) {
 
-        final var playerList = playerRepository.findAll();
-        return playerList.stream().map(playerConverter::toDto).toList();
+        final var playerList = playerRepository.findAll(pageable);
+        return playerList.map(playerConverter::toDto);
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        playerRepository.deleteById(id);
+    public boolean delete(Long id) {
+        final var byId = playerRepository.findById(id);
+        if (byId.isPresent()) {
+            playerRepository.delete(byId.get());
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -77,7 +83,7 @@ public class PlayerServiceImpl implements PlayerService {
         return playerRepository
             .findById(id)
             .map(playerConverter::toDto)
-            .orElseThrow(() -> new EntityDoesNotExist("There is no player with id: %s "));
+            .orElseThrow(() -> new EntityDoesNotExist("There is no player with id: %s ".formatted(id)));
     }
 
 

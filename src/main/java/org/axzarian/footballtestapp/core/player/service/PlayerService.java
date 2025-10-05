@@ -1,16 +1,17 @@
 package org.axzarian.footballtestapp.core.player.service;
 
 import jakarta.validation.Valid;
-import java.util.List;
 import org.axzarian.footballtestapp.core.player.dto.PlayerDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PlayerService {
 
     void create(PlayerDto playerDto);
 
-    List<PlayerDto> findAll();
+    Page<PlayerDto> findAll(Pageable pageable);
 
-    void delete(Long id);
+    boolean delete(Long id);
 
     PlayerDto update(Long id, @Valid PlayerDto playerDto);
 

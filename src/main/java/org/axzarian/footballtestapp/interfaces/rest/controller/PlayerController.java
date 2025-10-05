@@ -2,10 +2,11 @@ package org.axzarian.footballtestapp.interfaces.rest.controller;
 
 
 import jakarta.validation.Valid;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.core.player.dto.PlayerDto;
 import org.axzarian.footballtestapp.core.player.service.PlayerService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,15 +35,16 @@ public class PlayerController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PlayerDto>> findAll() {
-        final var dtoList = playerService.findAll();
+    public ResponseEntity<Page<PlayerDto>> findAll(Pageable pageable) {
+        final var dtoList = playerService.findAll(pageable);
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        playerService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return playerService.delete(id)
+               ? new ResponseEntity<>(HttpStatus.OK)
+               : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")
