@@ -19,3 +19,7 @@ databaseChangeLog:
       file: db/changelog/changesets/009-change-table-name-to-team-roster.sql
   - include:
       file: db/changelog/changesets/010-remove-not-null-constraint-for-result.sql
+  - include:
+      file: db/changelog/changesets/011-remove-captain-from-team.sql
+  - include:
+      file: db/changelog/changesets/012-add-table-captains.sql
