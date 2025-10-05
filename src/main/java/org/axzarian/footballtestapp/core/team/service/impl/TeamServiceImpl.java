@@ -51,5 +51,18 @@ public class TeamServiceImpl implements TeamService {
         return teamRepository.deleteTeamById(id) > 0;
     }
 
+    @Override
+    @Transactional
+    public TeamDto update(Long id, TeamDto teamDto) {
+        teamRepository.findById(id)
+                      .map(team -> {
+                          team.setTitle(teamDto.title());
+                          final var saved = teamRepository.save(team);
+                          return teamConverter.toDto(saved);
+                      });
+
+        return null;
+    }
+
 
 }

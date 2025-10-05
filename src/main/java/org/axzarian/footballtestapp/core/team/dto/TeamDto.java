@@ -8,7 +8,7 @@ public record TeamDto(
 
     Long id,
 
-    @NotBlank
+    @NotBlank (message = "Title is mandatory")
     String title
 ) {
 }

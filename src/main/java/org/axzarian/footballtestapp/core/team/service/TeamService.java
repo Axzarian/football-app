@@ -12,4 +12,6 @@ public interface TeamService {
     List<TeamDto> findAll(Pageable pageable);
 
     boolean delete(Long id);
+
+    TeamDto update(Long id, TeamDto teamDto);
 }
