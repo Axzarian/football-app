@@ -15,6 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.axzarian.footballtestapp.core.game.enums.GameResult;
 import org.axzarian.footballtestapp.core.season.Season;
 import org.axzarian.footballtestapp.core.arbiter.Arbiter;
 import org.axzarian.footballtestapp.core.team.Team;

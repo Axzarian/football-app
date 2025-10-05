@@ -1,6 +1,5 @@
 package org.axzarian.footballtestapp.core.game.service.impl;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.core.game.converter.GameConverter;
 import org.axzarian.footballtestapp.core.game.dto.CreateGameDto;
@@ -12,6 +11,7 @@ import org.axzarian.footballtestapp.core.game.repository.GameRepository;
 import org.axzarian.footballtestapp.core.season.repository.SeasonRepository;
 import org.axzarian.footballtestapp.core.team.repository.TeamRepository;
 import org.axzarian.footballtestapp.core.game.service.GameService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class GameServiceImpl implements GameService {
     private final GameConverter     gameConverter;
 
     @Override
-    public Game create(CreateGameDto gameDto) {
+    public GameDto create(CreateGameDto gameDto) {
 
         final var arbiter = arbiterRepository.findById(gameDto.arbiterId())
                                              .orElseThrow(() -> new EntityDoesNotExist("ArbiterId not found"));
@@ -46,9 +46,15 @@ public class GameServiceImpl implements GameService {
                              .arbiter(arbiter)
                              .homeTeam(homeTeam)
                              .awayTeam(awayTeam)
+                             .homeTeamGoals(0)
+                             .awayTeamGoals(0)
+                             .yellowCards(0)
+                             .redCards(0)
+                             .isFinished(false)
                              .build();
 
-        return gameRepository.save(game);
+        final var saved = gameRepository.save(game);
+        return gameConverter.toDto(saved);
     }
 
     @Override
@@ -59,9 +65,8 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public List<GameDto> findAll(Pageable pageable) {
-        final var games = gameRepository.findAll(pageable);
-        return games.map(gameConverter::toDto)
-                    .toList();
+    public Page<GameDto> findAll(Pageable pageable) {
+        return gameRepository.findAll(pageable)
+                             .map(gameConverter::toDto);
     }
 }

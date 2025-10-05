@@ -1,11 +1,11 @@
 package org.axzarian.footballtestapp.interfaces.rest.controller;
 
-import java.util.List;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.axzarian.footballtestapp.core.game.dto.CreateGameDto;
 import org.axzarian.footballtestapp.core.game.dto.GameDto;
-import org.axzarian.footballtestapp.core.game.Game;
 import org.axzarian.footballtestapp.core.game.service.GameService;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,8 +25,8 @@ public class GameController {
     private final GameService gameService;
 
     @PostMapping
-    public Game create(@RequestBody CreateGameDto gameDto) {
-        return gameService.create(gameDto);
+    public ResponseEntity<GameDto> create(@RequestBody @Valid CreateGameDto gameDto) {
+        return ResponseEntity.ok(gameService.create(gameDto));
     }
 
     @PatchMapping("/{id}")
@@ -36,7 +36,7 @@ public class GameController {
     }
 
     @GetMapping
-    public List<GameDto> findAll(Pageable pageable) {
+    public Page<GameDto> findAll(Pageable pageable) {
         return gameService.findAll(pageable);
     }
 }

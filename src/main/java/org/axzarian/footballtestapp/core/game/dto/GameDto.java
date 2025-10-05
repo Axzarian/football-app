@@ -5,7 +5,7 @@ import lombok.Builder;
 import org.axzarian.footballtestapp.core.arbiter.Arbiter;
 import org.axzarian.footballtestapp.core.season.Season;
 import org.axzarian.footballtestapp.core.team.Team;
-import org.axzarian.footballtestapp.core.game.GameResult;
+import org.axzarian.footballtestapp.core.game.enums.GameResult;
 
 @Builder
 public record GameDto(
