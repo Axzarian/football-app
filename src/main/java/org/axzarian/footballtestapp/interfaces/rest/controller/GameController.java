@@ -29,7 +29,7 @@ public class GameController {
         return ResponseEntity.ok(gameService.create(gameDto));
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/finish")
     public ResponseEntity<?> finishGame(@PathVariable Long id) {
         gameService.finishGame(id);
         return ResponseEntity.ok().build();

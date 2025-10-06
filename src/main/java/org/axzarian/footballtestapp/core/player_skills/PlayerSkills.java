@@ -34,11 +34,11 @@ public class PlayerSkills {
     Player player;
 
     @Column(name = "passing")
-    Integer passing;
+    int passing;
 
     @Column(name = "shooting")
-    Integer shooting;
+    int shooting;
 
     @Column(name = "ball_control")
-    Integer ballControl;
+    int ballControl;
 }

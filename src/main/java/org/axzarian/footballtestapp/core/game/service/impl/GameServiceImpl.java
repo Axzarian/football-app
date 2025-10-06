@@ -7,6 +7,7 @@ import org.axzarian.footballtestapp.core.game.dto.GameDto;
 import org.axzarian.footballtestapp.core.game.Game;
 import org.axzarian.footballtestapp.core.exception.EntityDoesNotExist;
 import org.axzarian.footballtestapp.core.arbiter.repository.ArbiterRepository;
+import org.axzarian.footballtestapp.core.game.enums.GameResult;
 import org.axzarian.footballtestapp.core.game.repository.GameRepository;
 import org.axzarian.footballtestapp.core.season.repository.SeasonRepository;
 import org.axzarian.footballtestapp.core.team.repository.TeamRepository;
@@ -46,10 +47,6 @@ public class GameServiceImpl implements GameService {
                              .arbiter(arbiter)
                              .homeTeam(homeTeam)
                              .awayTeam(awayTeam)
-                             .homeTeamGoals(0)
-                             .awayTeamGoals(0)
-                             .yellowCards(0)
-                             .redCards(0)
                              .isFinished(false)
                              .build();
 
@@ -59,8 +56,13 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public void finishGame(Long id) {
-        final var game = gameRepository.findById(id).orElseThrow(() -> new EntityDoesNotExist("Game id not found"));
+        final var game = gameRepository.findById(id)
+                                       .orElseThrow(() -> new EntityDoesNotExist("Game id not found"));
+        final var gameResult = determineGameResult(game.getHomeTeamGoals(), game.getAwayTeamGoals());
+
         game.setFinished(true);
+        game.setResult(gameResult);
+
         gameRepository.save(game);
     }
 
@@ -68,5 +70,14 @@ public class GameServiceImpl implements GameService {
     public Page<GameDto> findAll(Pageable pageable) {
         return gameRepository.findAll(pageable)
                              .map(gameConverter::toDto);
+    }
+
+    private GameResult determineGameResult(int homeTeamGoals, int awayTeamGoals) {
+        return switch (Integer.compare(homeTeamGoals, awayTeamGoals)) {
+            case 0 -> GameResult.DRAW;
+            case 1 -> GameResult.HOME_WIN;
+            case 2 -> GameResult.AWAY_WIN;
+            default -> throw new IllegalStateException("[jf83-je89] Unexpected value");
+        };
     }
 }

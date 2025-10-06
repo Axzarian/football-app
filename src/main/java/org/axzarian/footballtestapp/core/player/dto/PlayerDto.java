@@ -6,8 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import lombok.Builder;
-import org.axzarian.footballtestapp.core.player.Leg;
-import org.axzarian.footballtestapp.core.player.Position;
+import org.axzarian.footballtestapp.core.player.enums.Leg;
+import org.axzarian.footballtestapp.core.player.enums.Position;
 
 @Builder
 public record PlayerDto(
@@ -35,16 +35,16 @@ public record PlayerDto(
     @Min(10)
     @Max(100)
     @NotNull
-    Integer passing,
+    int passing,
 
     @Min(10)
     @Max(100)
     @NotNull
-    Integer shooting,
+    int shooting,
 
     @Min(10)
     @Max(100)
     @NotNull
-    Integer ballControl
+    int ballControl
 ) {
 }

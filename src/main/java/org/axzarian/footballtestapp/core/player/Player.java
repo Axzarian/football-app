@@ -17,6 +17,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.axzarian.footballtestapp.core.player.enums.Leg;
+import org.axzarian.footballtestapp.core.player.enums.Position;
 import org.axzarian.footballtestapp.core.player_skills.PlayerSkills;
 
 @Data

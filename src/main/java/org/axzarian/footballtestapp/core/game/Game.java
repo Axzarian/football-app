@@ -51,16 +51,16 @@ public class Game {
     private Team awayTeam;
 
     @Column(name = "home_team_goals")
-    private Integer homeTeamGoals;
+    private int homeTeamGoals;
 
     @Column(name = "away_team_goals")
-    private Integer awayTeamGoals;
+    private int awayTeamGoals;
 
     @Column(name = "yellow_cards")
-    private Integer yellowCards;
+    private int yellowCards;
 
     @Column(name = "red_cards")
-    private Integer redCards;
+    private int redCards;
 
     @Column(name = "is_finished")
     private boolean isFinished;
