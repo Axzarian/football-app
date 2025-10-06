@@ -20,6 +20,8 @@ public record PlayerDto(
     @NotBlank(message = "Last name can not be empty")
     String lastName,
 
+    String nickname,
+
     @NotNull(message = "Birthdate is mandatory")
     LocalDate birthDate,
 

@@ -39,6 +39,9 @@ public class Player {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "nickname")
+    private String nickname;
+
     @Column(name = "birth_date")
     private LocalDate birthDate;
 

@@ -23,3 +23,5 @@ databaseChangeLog:
       file: db/changelog/changesets/011-remove-captain-from-team.sql
   - include:
       file: db/changelog/changesets/012-add-table-captains.sql
+  - include:
+      file: db/changelog/changesets/013-add-column-nickname-to-players.sql

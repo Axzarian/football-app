@@ -13,6 +13,7 @@ public class PlayerConverter {
                         .id(player.getId())
                         .firstName(player.getFirstName())
                         .lastName(player.getLastName())
+                        .nickname(player.getNickname())
                         .birthDate(player.getBirthDate())
                         .position(player.getPosition())
                         .leg(player.getLeg())
@@ -20,11 +21,12 @@ public class PlayerConverter {
                         .build();
     }
 
-    public PlayerDto toDto(Player player, PlayerSkills playerSkills) {
+    public PlayerDto toDtoWithSkills(Player player, PlayerSkills playerSkills) {
         return PlayerDto.builder()
                         .id(player.getId())
                         .firstName(player.getFirstName())
                         .lastName(player.getLastName())
+                        .nickname(player.getNickname())
                         .birthDate(player.getBirthDate())
                         .position(player.getPosition())
                         .leg(player.getLeg())
@@ -40,6 +42,7 @@ public class PlayerConverter {
                      .id(playerDto.id())
                      .firstName(playerDto.firstName())
                      .lastName(playerDto.lastName())
+                     .nickname(playerDto.nickname())
                      .birthDate(playerDto.birthDate())
                      .position(playerDto.position())
                      .leg(playerDto.leg())
