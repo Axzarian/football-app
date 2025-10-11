@@ -10,18 +10,13 @@ databaseChangeLog:
   - include:
       file: db/changelog/changesets/005-create-teams-table.sql
   - include:
-      file: db/changelog/changesets/006-create-season-team-player-table.sql
+      file: db/changelog/changesets/006-create-team-roaster-table.sql
   - include:
       file: db/changelog/changesets/007-create-games-table.sql
   - include:
       file: db/changelog/changesets/008-create-player-statistics-table.sql
   - include:
-      file: db/changelog/changesets/009-change-table-name-to-team-roster.sql
+      file: db/changelog/changesets/009-create-table-captains.sql
   - include:
-      file: db/changelog/changesets/010-remove-not-null-constraint-for-result.sql
-  - include:
-      file: db/changelog/changesets/011-remove-captain-from-team.sql
-  - include:
-      file: db/changelog/changesets/012-add-table-captains.sql
-  - include:
-      file: db/changelog/changesets/013-add-column-nickname-to-players.sql
+      file: db/changelog/changesets/010-insert-test-data.sql
+

@@ -31,8 +31,8 @@ public class TeamRosterController {
 
     @GetMapping
     public ResponseEntity<List<PlayerDto>> getAllBySeasonAndTeam(
-        @RequestParam Long seasonId,
-        @RequestParam Long teamId
+        @RequestParam(name = "season") Long seasonId,
+        @RequestParam(name = "team") Long teamId
     ) {
         final var rosters = teamRosterService.getBySeasonAndTeam(seasonId, teamId);
         return ResponseEntity.ok(rosters);
@@ -40,8 +40,8 @@ public class TeamRosterController {
 
     @GetMapping("/test")
     public ResponseEntity<SeasonTeamRosterDto> getAllBySeasonAndTeamTest(
-        @RequestParam Long seasonId,
-        @RequestParam Long teamId
+        @RequestParam(name = "season") Long seasonId,
+        @RequestParam(name = "team") Long teamId
     ) {
         final var rosters = teamRosterService.getBySeasonAndTeamTest(seasonId, teamId);
         return ResponseEntity.ok(rosters);

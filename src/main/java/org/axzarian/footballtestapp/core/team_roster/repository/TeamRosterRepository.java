@@ -12,7 +12,7 @@ public interface TeamRosterRepository extends JpaRepository<TeamRoster, Long> {
 
     @Query(
         "SELECT new org.axzarian.footballtestapp.core.player.dto.PlayerDto(" +
-        "p.id, p.firstName, p.lastName, p.birthDate, p.position, p.leg, p.isCaptain, " +
+        "p.id, p.firstName, p.lastName, p.nickname, p.birthDate, p.position, p.leg, p.isCaptain, " +
         "ps.passing, ps.shooting, ps.ballControl) " +
         "FROM TeamRoster tr " +
         "JOIN tr.player p " +
